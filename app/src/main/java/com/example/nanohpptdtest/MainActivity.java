@@ -11,7 +11,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     //NanoHTTPD test
     //FileServer mHttpServer;
     private TextView textViewHello;
+    private VideoView mVideoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         textViewHello.setOnClickListener(view -> {
             test2();
         });
+        mVideoView = findViewById(R.id.video_view);
     }
 
     private void test2() {
@@ -82,6 +86,20 @@ public class MainActivity extends AppCompatActivity {
             Uri selectedVideoUri = data.getData();
             // 处理所选视频的 URI
             Log.i(TAG, "selectedVideoUri = " + selectedVideoUri);
+            playSelectedVideo(selectedVideoUri);
+        }
+    }
+
+    private void playSelectedVideo(Uri sUri) {
+        if (sUri != null) {
+            mVideoView.setVideoURI(sUri);
+
+            // 添加媒体控制器
+            MediaController mediaController = new MediaController(this);
+            mVideoView.setMediaController(mediaController);
+            mediaController.setAnchorView(mVideoView);
+
+            mVideoView.start();  // 开始播放
         }
     }
 
