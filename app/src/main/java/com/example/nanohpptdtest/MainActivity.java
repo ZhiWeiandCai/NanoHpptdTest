@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         //test(); //RxJava test
         textViewHello = findViewById(R.id.tv_hello);
         textViewHello.setOnClickListener(view -> {
-            test2();
+            test2(); //test video view
+
         });
         mVideoView = findViewById(R.id.video_view);
     }
